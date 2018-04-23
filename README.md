@@ -27,7 +27,7 @@ Add into `gatsby-config.js`.
 ```javascript
 // gatsby-config.js
 
-module.exports {
+module.exports = {
   plugins: [
     'gatsby-plugin-eslint'
   ]
@@ -54,7 +54,6 @@ module.exports = {
     }
   ]
 }
-
 ```
 
 ## Configuring ESLint
@@ -100,6 +99,6 @@ You're free to install your own ESLint plugins and rules. Here are 2 easy ways t
 
     ```javascript
     {
-       "extends": "airbnb"
+      "extends": "airbnb"
     }
     ```
