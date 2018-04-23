@@ -1,0 +1,35 @@
+{
+  "name": "gatsby-plugin-eslint",
+  "description": "Gatsby plugin to add support for ESLint",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Mong-Kuen Sun <mongkuen.sun@gmail.com>",
+  "homepage": "https://github.com/mongkuen/gatsby-plugin-eslint",
+  "bugs": {
+    "url": "https://github.com/mongkuen/gatsby-plugin-eslint/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mongkuen/gatsby-plugin-eslint"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "eslint"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir .",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  },
+  "peerDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-loader": "^2.0.0"
+  }
+}
