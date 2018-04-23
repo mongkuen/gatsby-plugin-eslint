@@ -22,11 +22,10 @@
     "build": "babel src --out-dir .",
     "prepublish": "npm run build"
   },
-  "dependencies": {
-    "babel-runtime": "^6.26.0"
-  },
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-runtime": "^6.26.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
   },
   "peerDependencies": {
     "eslint": "^4.9.0",
