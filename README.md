@@ -36,10 +36,11 @@ module.exports = {
 
 If no options are specified, the plugin defaults to:
 
-1. Lint `.js` and `.jsx` files
+1. Lint `.js` and `.jsx` files.
 2. Exclude `node_modules`, `.cache`, and `public` folders from linting.
+3. Default [ESLint-Loader](https://github.com/webpack-contrib/eslint-loader#options) options.
 
-You can specify your own linting filetypes, exclusions and options with the plugin options like so:
+You can specify your own linting filetypes, exclusions, and [ESLint-Loader options](https://github.com/webpack-contrib/eslint-loader#options):
 
 ```javascript
 // gatsby-config.js
@@ -48,8 +49,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-eslint',
       options: {
-        exclude: /(node_modules|cache|public)/,
         test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|cache|public)/,
         options: {
           emitWarning: true,
           failOnError: false
