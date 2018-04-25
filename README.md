@@ -50,7 +50,7 @@ module.exports = {
       options: {
         exclude: /(node_modules|cache|public)/,
         test: /\.js$|\.jsx$/,
-        extraOptions: {
+        options: {
           emitWarning: true,
           failOnError: false
         }
