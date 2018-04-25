@@ -20,7 +20,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir .",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "babel-runtime": "^6.26.0",
