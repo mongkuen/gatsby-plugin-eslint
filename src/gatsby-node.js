@@ -8,6 +8,9 @@ exports.modifyWebpackConfig = ({ config, stage }, pluginOptions) => {
       test,
       exclude,
     });
+    config.merge({
+      eslint: extraOptions
+    });
   }
   return config;
 };
