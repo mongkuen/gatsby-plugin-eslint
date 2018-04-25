@@ -39,7 +39,7 @@ If no options are specified, the plugin defaults to:
 1. Lint `.js` and `.jsx` files
 2. Exclude `node_modules`, `.cache`, and `public` folders from linting.
 
-You can specify your own linting filetypes and exclusions with the plugin options like so:
+You can specify your own linting filetypes, exclusions and options with the plugin options like so:
 
 ```javascript
 // gatsby-config.js
@@ -49,7 +49,11 @@ module.exports = {
       resolve: 'gatsby-plugin-eslint',
       options: {
         exclude: /(node_modules|cache|public)/,
-        test: /\.js$|\.jsx$/
+        test: /\.js$|\.jsx$/,
+        options: {
+          emitWarning: true,
+          failOnError: false
+        }
       }
     }
   ]
