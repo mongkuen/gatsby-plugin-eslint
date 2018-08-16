@@ -1,17 +1,20 @@
-exports.modifyWebpackConfig = ({ config, stage }, pluginOptions) => {
+exports.onCreateWebpackConfig = ({ stage, actions }, pluginOptions) => {
   const test = pluginOptions.test || /\.js$|\.jsx$/;
   const exclude = pluginOptions.exclude || /(node_modules|cache|public)/;
   const options = pluginOptions.options || {};
 
   if (stage === 'develop') {
-    config.loader('js|jsx', {
-      loader: 'eslint-loader',
-      test,
-      exclude,
-    });
-    config.merge({
-      eslint: options
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: test,
+            loader: 'eslint-loader',
+            exclude: exclude,
+            options
+          },
+        ],
+      },
     });
   }
-  return config;
 };
