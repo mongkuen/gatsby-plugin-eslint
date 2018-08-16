@@ -1,7 +1,7 @@
 {
   "name": "gatsby-plugin-eslint",
   "description": "Gatsby plugin to add support for ESLint",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Mong-Kuen Sun <mongkuen.sun@gmail.com>",
   "homepage": "https://github.com/mongkuen/gatsby-plugin-eslint",
@@ -19,13 +19,19 @@
   ],
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently \"yarn run prettier-watch\" \"yarn run build-watch\" --kill-others",
+    "prettier-watch": "onchange 'src/**/*.js' 'src/**/*.jsx' -- prettier --write {{changed}}",
+    "build-watch": "onchange 'src/**/*.js' 'src/**/*.jsx' -- yarn run build",
     "build": "babel src --out-dir .",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "babel-runtime": "^6.26.0",
     "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
+    "babel-preset-es2015": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "concurrently": "^3.6.1",
+    "onchange": "^4.1.0",
+    "prettier": "^1.14.2"
   },
   "peerDependencies": {
     "eslint": "^4.9.0",
