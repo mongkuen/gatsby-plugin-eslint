@@ -1,7 +1,7 @@
 {
   "name": "gatsby-plugin-eslint",
   "description": "Gatsby plugin to add support for ESLint",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "author": "Mong-Kuen Sun <mongkuen.sun@gmail.com>",
   "homepage": "https://github.com/mongkuen/gatsby-plugin-eslint",
@@ -35,6 +35,7 @@
   },
   "peerDependencies": {
     "eslint": "^4.9.0",
-    "eslint-loader": "^2.0.0"
+    "eslint-loader": "^2.0.0",
+    "gatsby": ">=1"
   }
 }
