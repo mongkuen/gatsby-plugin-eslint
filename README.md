@@ -9,11 +9,11 @@ Adds ESLint to your Gatsby dev environment, maintaining code quality as you deve
 
 1. Install the `gatsby-plugin-eslint` plugin:
 
-    `npm install --save-dev gatsby-plugin-eslint`
+    `npm install --save-dev gatsby-plugin-eslint eslint-loader`
 
     or
 
-    `yarn add --dev gatsby-plugin-eslint`
+    `yarn add --dev gatsby-plugin-eslint eslint-loader`
 
 ### Gatsby V1 Instructions
 1. Install the `gatsby-plugin-eslint` plugin:
