@@ -36,7 +36,9 @@ Adds ESLint to your Gatsby dev environment, maintaining code quality as you deve
 
 ## Usage
 
-Add into `gatsby-config.js`.
+1. Create a `.eslintrc` file in your project root. Otherwise ESLint will complain.
+
+2. Add into `gatsby-config.js`.
 
 ```javascript
 // gatsby-config.js
