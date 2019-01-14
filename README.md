@@ -15,6 +15,14 @@ Adds ESLint to your Gatsby dev environment, maintaining code quality as you deve
 
     `yarn add --dev gatsby-plugin-eslint`
 
+2. Install [ESLint](https://eslint.org/) and [`eslint-loader`](https://github.com/webpack-contrib/eslint-loader):
+
+    `npm install --save-dev eslint eslint-loader`
+
+    or
+
+    `yarn add --dev eslint eslint-loader`
+
 ### Gatsby V1 Instructions
 1. Install the `gatsby-plugin-eslint` plugin:
 
@@ -23,8 +31,6 @@ Adds ESLint to your Gatsby dev environment, maintaining code quality as you deve
     or
 
     `yarn add --dev gatsby-plugin-eslint@^1.0.3`
-
-<hr/>
 
 2. Install [ESLint](https://eslint.org/) and [`eslint-loader`](https://github.com/webpack-contrib/eslint-loader):
 
