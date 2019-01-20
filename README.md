@@ -61,6 +61,8 @@ If no options are specified, the plugin defaults to:
 1. Lint `.js` and `.jsx` files.
 2. Exclude `node_modules`, `.cache`, and `public` folders from linting.
 3. Default [ESLint-Loader](https://github.com/webpack-contrib/eslint-loader#options) options.
+4. `stages` is set to `['develop']` and only running that command the plugin with lint files.
+   One might want to add `build-javascript` to the list and lint files in CI.
 
 You can specify your own linting filetypes, exclusions, and [ESLint-Loader options](https://github.com/webpack-contrib/eslint-loader#options):
 
@@ -71,6 +73,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-eslint',
       options: {
+        stages: ['develop'],
         test: /\.js$|\.jsx$/,
         exclude: /(node_modules|cache|public)/,
         options: {
