@@ -75,7 +75,7 @@ module.exports = {
       options: {
         stages: ['develop'],
         test: /\.js$|\.jsx$/,
-        exclude: /(node_modules|cache|public)/,
+        exclude: /(node_modules|.cache|public)/,
         options: {
           emitWarning: true,
           failOnError: false
