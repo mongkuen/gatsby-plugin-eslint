@@ -9,6 +9,7 @@ exports.onCreateWebpackConfig = ({ stage, actions }, pluginOptions) => {
       module: {
         rules: [
           {
+            enforce: "pre",
             test: test,
             loader: "eslint-loader",
             exclude: exclude,
