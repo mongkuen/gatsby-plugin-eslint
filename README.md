@@ -85,6 +85,24 @@ module.exports = {
 }
 ```
 
+### TypeScript
+
+For correct usage with TypeScript test against `.ts` and `.tsx` files.
+
+```javascript
+// gatsby-config.js
+module.exports = {
+  plugins: [
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        test: /\.ts$|\.tsx$/,
+      }
+    }
+  ]
+}
+```
+
 ## Configuring ESLint
 
 You're free to install your own ESLint plugins and rules. Here are 2 easy ways to start linting:
