@@ -1,22 +1,15 @@
+const ESLintPlugin = require("eslint-webpack-plugin");
+
 exports.onCreateWebpackConfig = ({ stage, actions }, pluginOptions) => {
-  const test = pluginOptions.test || /\.js$|\.jsx$/;
-  const exclude = pluginOptions.exclude || /(node_modules|.cache|public)/;
   const options = pluginOptions.options || {};
-  const stages = pluginOptions.stages || ['develop'];
+  if (!options.extensions) options.extensions = ["js", "jsx", "ts", "tsx"];
+  if (!options.exclude) options.exclude = ["node_modules", ".cache", "public"];
+
+  const stages = pluginOptions.stages || ["develop"];
 
   if (stages.includes(stage)) {
     actions.setWebpackConfig({
-      module: {
-        rules: [
-          {
-            enforce: "pre",
-            test: test,
-            loader: "eslint-loader",
-            exclude: exclude,
-            options
-          }
-        ]
-      }
+      plugins: [new ESLintPlugin(Object.assign(options))]
     });
   }
 };
