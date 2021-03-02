@@ -1,7 +1,7 @@
 const ESLintPlugin = require("eslint-webpack-plugin");
 
 exports.onCreateWebpackConfig = ({ stage, actions }, pluginOptions) => {
-  const options = pluginOptions.options || {};
+  const options = pluginOptions || {};
   if (!options.extensions) options.extensions = ["js", "jsx", "ts", "tsx"];
   if (!options.exclude) options.exclude = ["node_modules", ".cache", "public"];
 
