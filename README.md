@@ -57,7 +57,6 @@ or
 2. Add plugin into `gatsby-config.js`
   ```javascript
   // gatsby-config.js
-
   module.exports = {
     plugins: [
       // ...other plugins
@@ -102,7 +101,6 @@ module.exports = {
 
       ```javascript
       // gatsby-config.js
-
       module.exports = {
         plugins: [
           'gatsby-plugin-eslint'
@@ -145,7 +143,7 @@ module.exports = {
 
 
 ## Configuring ESLint
-You're want to mix and match your own ESLint plugins and rules depending on if the React/Javascript/Typescript patterns you want to enforce. Here are 3 ways you can get started:
+Mix and match your own ESLint plugins and rules depending on the React/Javascript/Typescript patterns you want to enforce. Here are three ways you can get started:
 
 ### Basic React Linting with [`eslint-plugin-react`](https://github.com/yannickcr/eslint-plugin-react)
 
