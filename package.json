@@ -36,6 +36,6 @@
   "peerDependencies": {
     "eslint": "^7.18.0",
     "eslint-webpack-plugin": "^2.4.3",
-    "gatsby": ">=2"
+    "gatsby": "^3.0.0 || ^2.0.0"
   }
 }
