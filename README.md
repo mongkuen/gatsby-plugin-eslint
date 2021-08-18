@@ -1,260 +1,163 @@
 # gatsby-plugin-eslint
 
-Adds ESLint to your Gatsby dev environment, maintaining code quality as you develop.
+**Now working with Gatsby V3**
 
-**NOTE:** Current version `^3.0.0` is a breaking update as `eslint-loader` was deprecated in favor of `eslint-webpack-plugin`
+Replaces Gatsby's ESLint Webpack configs, giving you full control to customize linting with the rules and developer experience you specifically need to maintain code quality.
+
+This will COMPLETELY OVERWRITE any ESLint Webpack Plugins that Gatsby uses.
+The installation instructions will help you reactivate the [two required rules as of writing](https://www.gatsbyjs.com/docs/how-to/custom-configuration/eslint/#configuring-eslint):
+
+- [`no-anonymous-exports-page-templates`](https://github.com/gatsbyjs/gatsby/blob/fbfe3f63dec23d279a27b54b4057dd611dce74bb/packages/gatsby/src/utils/eslint-rules/no-anonymous-exports-page-templates.ts)
+- [`limited-exports-page-templates`](https://github.com/gatsbyjs/gatsby/blob/fbfe3f63dec23d279a27b54b4057dd611dce74bb/packages/gatsby/src/utils/eslint-rules/limited-exports-page-templates.ts)
 
 ## Installation
+
 `npm install --save-dev gatsby-plugin-eslint eslint eslint-webpack-plugin`
 
 or
 
 `yarn add --dev gatsby-plugin-eslint eslint eslint-webpack-plugin`
 
-<details>
-  <summary>Deprecated version <=2.0.8 installation (Gatsby V2 with eslint-loader)</summary>
+## Default Settings
 
-  1. Install the `gatsby-plugin-eslint` plugin:
-
-      `npm install --save-dev gatsby-plugin-eslint@^2.0.8`
-
-      or
-
-      `yarn add --dev gatsby-plugin-eslint@^2.0.8`
-
-  2. Install [ESLint](https://eslint.org/) and [`eslint-loader`](https://github.com/webpack-contrib/eslint-loader):
-
-      `npm install --save-dev eslint eslint-loader`
-
-      or
-
-      `yarn add --dev eslint eslint-loader`
-</details>
-
-<details>
-  <summary>Deprecated version <=1.0.3 installation (Gatsby V1 with eslint-loader)</summary>
-
-  1. Install the `gatsby-plugin-eslint` plugin:
-
-      `npm install --save-dev gatsby-plugin-eslint@^1.0.3`
-
-      or
-
-      `yarn add --dev gatsby-plugin-eslint@^1.0.3`
-
-  2. Install [ESLint](https://eslint.org/) and [`eslint-loader`](https://github.com/webpack-contrib/eslint-loader):
-
-      `npm install --save-dev eslint eslint-loader`
-
-      or
-
-      `yarn add --dev eslint eslint-loader`
-</details>
-
-
-## Usage
-1. Create `.eslintrc` file in project root.
-2. Add plugin into `gatsby-config.js`
-  ```javascript
-  // gatsby-config.js
-  module.exports = {
-    plugins: [
-      // ...other plugins
-      'gatsby-plugin-eslint'
-    ]
-  }
-  ```
-
-If no options are specified, plugin defaults to the following:
-1. Lints in development mode in the `'develop'` stage. Add other [Webpack Config Stage](https://www.gatsbyjs.com/docs/production-app/#webpack-config) into `stages` array to enable linting during other stages (eg. `build-javascript`)
+1. Lints development mode in the `'develop'` stage. Add other [Webpack Config Stages](https://www.gatsbyjs.com/docs/production-app/#webpack-config) into `stages` array to enable linting during other Gatsby stages (eg. `build-javascript`)
 2. Lint `.js`, `.jsx`, `.ts`, and `.tsx` files.
-3. Excludes `node_modules`, `.cache`, and `public` folders from linting
+3. Excludes `node_modules`, `bower_components`, `.cache`, and `public` folders from linting
 4. Otherwise uses [`eslint-webpack-plugin`](https://github.com/webpack-contrib/eslint-webpack-plugin#options) option defaults
 
-You can pass your own [`eslint-webpack-plugin`](https://github.com/webpack-contrib/eslint-webpack-plugin#options) options into `gatsby-config.js`
+## Usage
 
-```javascript
-// gatsby-config.js
-module.exports = {
-  plugins: [
-    // ...other plugins
-    {
-      resolve: 'gatsby-plugin-eslint',
-      options: {
-        stages: ['develop'],
-        extensions: ['js', 'jsx'],
-        exclude: ['node_modules', '.cache', 'public'],
-        // Any eslint-webpack-plugin options below
-      }
-    }
-  ]
-}
-```
+1. Create `.eslintrc` file in project root.
 
+   ```javascript
+   // .eslintrc
 
-<details>
-  <summary>Deprecated version <=2.0.8 usage</summary>
+   // Gatsby's required rules
+   {
+     "rules": {
+       "no-anonymous-exports-page-templates": "warn",
+       "limited-exports-page-templates": "warn"
+     }
+   }
+   ```
 
-  1. Create a `.eslintrc` file in your project root. Otherwise ESLint will complain.
+2. Add plugin into `gatsby-config.js`
 
-  2. Add into `gatsby-config.js`.
+   ```javascript
+   // gatsby-config.js
 
-      ```javascript
-      // gatsby-config.js
-      module.exports = {
-        plugins: [
-          'gatsby-plugin-eslint'
-        ]
-      }
-      ```
+   const path = require("path");
+   // Get paths of Gatsby's required rules, which as of writing is located at:
+   // https://github.com/gatsbyjs/gatsby/tree/fbfe3f63dec23d279a27b54b4057dd611dce74bb/packages/
+   // gatsby/src/utils/eslint-rules
+   const gatsbyRequiredRules = path.join(
+     process.cwd(),
+     "node_modules",
+     "gatsby",
+     "dist",
+     "utils",
+     "eslint-rules"
+   );
 
-  If no options are specified, the plugin defaults to:
+   module.exports = {
+     plugins: [
+       // ...other plugins
+       {
+         resolve: "gatsby-plugin-eslint",
+         options: {
+           // Gatsby required rules directory
+           rulePaths: [gatsbyRequiredRules],
+           // Default settings that may be ommitted or customized
+           stages: ["develop"],
+           extensions: ["js", "jsx", "ts", "tsx"],
+           exclude: ["node_modules", "bower_components", ".cache", "public"],
+           // Any additional eslint-webpack-plugin options below
+           // ...
+         },
+       },
+     ],
+   };
+   ```
 
-  1. Lint `.js` and `.jsx` files.
-
-  2. Exclude `node_modules`, `.cache`, and `public` folders from linting. Refrain from naming your project these folder names, otherwise make your own config option exclusions.
-
-  3. Only lints in development in the `'develop'` stage. You may enable linting during other build/dev stages by adding any [Webpack Config Stage](https://www.gatsbyjs.org/docs/production-app/#webpack-config) into the `stages` array. For example, adding `'build-javascript'` into the `stages` array will enable linting during JS build time.
-
-  4. Default [ESLint-Loader](https://github.com/webpack-contrib/eslint-loader#options) options.
-
-  You can specify your own linting filetypes, exclusions, and [ESLint-Loader options](https://github.com/webpack-contrib/eslint-loader#options):
-
-  ```javascript
-  // gatsby-config.js
-  module.exports = {
-    plugins: [
-      {
-        resolve: 'gatsby-plugin-eslint',
-        options: {
-          test: /\.js$|\.jsx$/,
-          exclude: /(node_modules|.cache|public)/,
-          stages: ['develop'],
-          options: {
-            emitWarning: true,
-            failOnError: false
-          }
-        }
-      }
-    ]
-  }
-  ```
-</details>
-
+3. Additionally as of writing, [Gatsby's default ESLint config](https://github.com/gatsbyjs/gatsby/blob/fbfe3f63dec23d279a27b54b4057dd611dce74bb/packages/gatsby/src/utils/eslint-config.ts) may be copied over if you would still like to take advavntage of those rules.
 
 ## Configuring ESLint
+
 Mix and match your own ESLint plugins and rules depending on the React/Javascript/Typescript patterns you want to enforce. Here are three ways you can get started:
 
 ### Basic React Linting with [`eslint-plugin-react`](https://github.com/yannickcr/eslint-plugin-react)
 
 1. Follow [`eslint-plugin-react`](https://github.com/yannickcr/eslint-plugin-react) plugin installation procedures:
 
-    `npm install --save-dev eslint-plugin-react babel-eslint`
+   `npm install --save-dev eslint-plugin-react babel-eslint`
 
-    or
+   or
 
-    `yarn add --dev eslint-plugin-react babel-eslint`
+   `yarn add --dev eslint-plugin-react babel-eslint`
 
 2. Add `.eslintrc` file to project root:
 
-    ```javascript
-    {
-      "parser": "babel-eslint", // uses babel-eslint transforms
-      "settings": {
-        "react": {
-          "version": "detect" // detect react version
-        }
-      },
-      "env": {
-        "node": true // defines things like process.env when generating through node
-      },
-      "extends": [
-        "eslint:recommended", // use recommended configs
-        "plugin:react/recommended"
-      ]
-    }
-    ```
+   ```javascript
+   {
+     "parser": "babel-eslint", // uses babel-eslint transforms
+     "settings": {
+       "react": {
+         "version": "detect" // detect react version
+       }
+     },
+     "env": {
+       "node": true // defines things like process.env when generating through node
+     },
+     "extends": [
+       "eslint:recommended", // use recommended configs
+       "plugin:react/recommended"
+     ],
+     "rules": {
+       "no-anonymous-exports-page-templates": "warn",
+       "limited-exports-page-templates": "warn"
+     }
+   }
+   ```
 
 ### Advanced React Linting with AirBnB's [`eslint-config-airbnb`](https://www.npmjs.com/package/eslint-config-airbnb)
 
 1. Follow [`eslint-config-airbnb`](https://www.npmjs.com/package/eslint-config-airbnb) plugin installation procedures. If **npm 5+** this command works for `npm` and `yarn`
 
-    `npx install-peerdeps --dev eslint-config-airbnb`
+   `npx install-peerdeps --dev eslint-config-airbnb`
 
 2. Add `.eslintrc` file to project root:
 
-    ```javascript
-    {
-      "extends": "airbnb"
-    }
-    ```
+   ```javascript
+   {
+     "extends": "airbnb",
+     "rules": {
+       "no-anonymous-exports-page-templates": "warn",
+       "limited-exports-page-templates": "warn"
+     }
+   }
+   ```
 
 ### Typescript Linting with [ESLint Plugin Typescript](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
 
 1. Follow [`@typescript-eslint/eslint-plugin`](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) plugin installation procedures:
 
-    `npm install --save-dev typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin`
+   `npm install --save-dev typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin`
 
-    or
+   or
 
-    `yarn add --dev typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin`
+   `yarn add --dev typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin`
 
 2. Add `.eslintrc` file to project root:
 
-    ```javascript
-    {
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-      ]
-    }
-    ```
-
-<details>
-  <summary>Deprecated version <=2.0.8 configuration</summary>
-
-  You're free to install your own ESLint plugins and rules. Here are 2 easy ways to start linting:
-
-  ### Basic [`eslint-plugin-react`](https://github.com/yannickcr/eslint-plugin-react) Linting
-
-  1. Follow [`eslint-plugin-react`](https://github.com/yannickcr/eslint-plugin-react) plugin installation procedures:
-
-      `npm install --save-dev babel-eslint eslint-plugin-import eslint-plugin-react`
-
-      or
-
-      `yarn add --dev babel-eslint eslint-plugin-import eslint-plugin-react`
-
-  2. Add `.eslintrc` file to project root:
-
-      ```javascript
-      {
-        "parser": "babel-eslint",
-        "rules": {
-          "strict": 0
-        },
-        "extends": [
-          "eslint:recommended",
-          "plugin:react/recommended"
-        ]
-      }
-      ```
-
-  ### AirBnB's [`eslint-config-airbnb`](https://www.npmjs.com/package/eslint-config-airbnb) Linting
-
-  1. Follow [`eslint-config-airbnb`](https://www.npmjs.com/package/eslint-config-airbnb) plugin installation procedures:
-
-      `npm install --save-dev eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react`
-
-      or
-
-      `yarn add --dev eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react`
-
-  2. Add `.eslintrc` file to project root:
-
-      ```javascript
-      {
-        "extends": "airbnb"
-      }
-      ```
-</details>
+   ```javascript
+   {
+     "extends": [
+       "eslint:recommended",
+       "plugin:@typescript-eslint/recommended",
+     ],
+     "rules": {
+       "no-anonymous-exports-page-templates": "warn",
+       "limited-exports-page-templates": "warn"
+     }
+   }
+   ```
