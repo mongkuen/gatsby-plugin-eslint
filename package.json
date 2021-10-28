@@ -1,7 +1,7 @@
 {
   "name": "gatsby-plugin-eslint",
   "description": "Gatsby plugin to add support for ESLint",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "MIT",
   "author": "Mong-Kuen Sun <mongkuen.sun@gmail.com>",
   "homepage": "https://github.com/mongkuen/gatsby-plugin-eslint",
@@ -37,7 +37,7 @@
   "peerDependencies": {
     "eslint": "^7.18.0",
     "eslint-webpack-plugin": "^2.4.3",
-    "gatsby": "^3.0.0 || ^2.0.0"
+    "gatsby": "^2 || ^3 || ^4"
   },
   "dependencies": {
     "webpack-merge": "^5.8.0"
