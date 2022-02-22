@@ -67,7 +67,7 @@ or
          options: {
            // Gatsby required rules directory
            rulePaths: [gatsbyRequiredRules],
-           // Default settings that may be ommitted or customized
+           // Default settings that may be omitted or customized
            stages: ["develop"],
            extensions: ["js", "jsx", "ts", "tsx"],
            exclude: ["node_modules", "bower_components", ".cache", "public"],
